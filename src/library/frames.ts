@@ -9,7 +9,8 @@ function loop(_time: number) {
   requestAnimationFrame(loop);
   dtime = _time - time;
   time = _time;
-  FRAMES.forEach(run);
+  if (dtime < 150)
+    FRAMES.forEach(run);
 }
 
 requestAnimationFrame(loop);
