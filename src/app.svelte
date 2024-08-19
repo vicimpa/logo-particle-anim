@@ -3,4 +3,4 @@
   import logoSrc from "$images/logo.png";
 </script>
 
-<Logo src={logoSrc} size={1} padding={50} r={100} a={1} />
+<Logo src={logoSrc} size={1} padding={150} p={2} r={200} a={0.2} />
