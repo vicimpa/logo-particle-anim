@@ -5,28 +5,29 @@ import { Vec2 } from "./Vec2";
 export class Point extends Vec2 {
   start: Vec2;
   color: string;
+  colors: number[];
 
   dir = random() * PI2;
   speed = 0;
 
   constructor(
-    color: number,
+    private _color: number,
     x: number,
     y: number,
     public p: number = 1
   ) {
     super(x, y);
     this.start = new Vec2(x, y);
-    this.color = this.intToHex(color);
+    this.colors = [
+      _color,
+      _color >> 8,
+      _color >> 16
+    ].map(e => e & 0xff);
+    this.color = this.getColor();
   }
 
-  intToHex(int: number) {
-    return `rgba(${[
-      int,
-      int >> 8,
-      int >> 16,
-      int >> 24
-    ].map(e => e & 0xff).join(',')})`;
+  getColor(opacity = this._color >> 24) {
+    return `rgba(${this.colors.join(',')}, ${opacity & 0xff})`;
   }
 
   tick(dtime: number, time: number, mouse: Vec2, size = 100) {
@@ -38,21 +39,19 @@ export class Point extends Vec2 {
       delta.minus(mdelta.norm().times(size - mdistance).times(.5));
     }
 
-    const needSpeed = max(delta.hypot(), .5);
+    const needSpeed = min(max(delta.hypot(), 0), 50);
     const needAngle = delta.angle();
 
-    delta.plus(Vec2.fromRandom());
-
     this.speed += (needSpeed - this.speed) * 0.01 * dtime;
-    this.dir += absMin(needAngle - this.dir, needAngle - this.dir + PI2) * 0.01 * dtime;
+    this.dir += absMin(needAngle - this.dir, needAngle - this.dir + PI2) * 0.015 * dtime;
 
     this.plus(Vec2.fromAngle(this.dir).times(this.speed).times(0.01).times(dtime));
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    const { x, y, p, color } = this;
+    const { x, y, p } = this;
 
-    ctx.fillStyle = color;
+    ctx.fillStyle = this.getColor();
     ctx.fillRect(x - p / 2, y - p / 2, p, p);
   }
 }

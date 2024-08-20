@@ -3,6 +3,7 @@
   import { Vec2 } from "$class/Vec2";
   import { onFrame } from "$hooks/onFrame";
   import { getImageData } from "$library/image";
+  import { max, min, PI2, random } from "$library/math";
 
   export let src: string;
   export let size = 1;
@@ -34,6 +35,9 @@
       width = _width + paddingLeft + paddingRight;
       height = _height + paddingTop + paddingBottom;
 
+      const center = new Vec2(width, height).times(0.5);
+      const length = min(center.x, center.y) * 0.9;
+
       for (let y = 0; y < _height; y++) {
         for (let x = 0; x < _width; x++) {
           const index = x + y * _width;
@@ -41,7 +45,19 @@
 
           if (!color) continue;
           if (Math.random() > a) continue;
-          points.push(new Point(color, x + paddingLeft, y + paddingTop, p));
+          const point = new Point(color, x + paddingLeft, y + paddingTop, p);
+
+          point.set(
+            Vec2.fromAngle(PI2 * random())
+              .times(random())
+              .times(0.5)
+              .times(width, height)
+              .plus(center),
+          );
+
+          // point.x = random() * width;
+          // point.y = random() * height;
+          points.push(point);
         }
       }
     },
