@@ -38,7 +38,7 @@ export class Point extends Vec2 {
       delta.minus(mdelta.norm().times(size - mdistance).times(.5));
     }
 
-    const needSpeed = max(delta.hypot(), 1);
+    const needSpeed = max(delta.hypot(), .5);
     const needAngle = delta.angle();
 
     delta.plus(Vec2.fromRandom());

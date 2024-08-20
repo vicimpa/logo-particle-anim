@@ -3,7 +3,6 @@
   import { Vec2 } from "$class/Vec2";
   import { onFrame } from "$hooks/onFrame";
   import { getImageData } from "$library/image";
-  import { absMin, PI2 } from "$library/math";
 
   export let src: string;
   export let size = 1;
@@ -48,9 +47,6 @@
     },
   );
 
-  var angle = 0;
-  var delta = 0;
-
   onFrame((dtime, time) => {
     if (!can) return;
     if (!ctx) return;
@@ -59,28 +55,6 @@
       Object.assign(can, { width, height });
 
     ctx.clearRect(0, 0, width, height);
-
-    // const radius = 200;
-
-    // const center = new Vec2(width, height).times(0.5);
-
-    // const needAngle = mouse.cminus(center).angle();
-    // const delta = absMin(needAngle - angle, needAngle - angle + PI2);
-
-    // angle += delta * 0.01 * dtime;
-
-    // const point = Vec2.fromAngle(needAngle).times(radius).plus(center);
-    // const point2 = Vec2.fromAngle(angle).times(radius).plus(center);
-
-    // ctx.beginPath();
-    // ctx.strokeStyle = "#fff";
-    // ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
-    // ctx.moveTo(center.x, center.y);
-    // ctx.lineTo(point.x, point.y);
-    // ctx.moveTo(center.x, center.y);
-    // ctx.lineTo(point2.x, point2.y);
-    // ctx.stroke();
-    // ctx.closePath();
 
     for (const point of points) {
       point.tick(dtime, time, mouse, r);
