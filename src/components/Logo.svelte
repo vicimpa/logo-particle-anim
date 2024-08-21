@@ -36,7 +36,6 @@
       height = _height + paddingTop + paddingBottom;
 
       const center = new Vec2(width, height).times(0.5);
-      const length = min(center.x, center.y) * 0.9;
 
       for (let y = 0; y < _height; y++) {
         for (let x = 0; x < _width; x++) {
