@@ -18,10 +18,10 @@ function _vec<T extends (x: number, y: number) => any>(
   args: AVec2,
   run: T
 ): ReturnType<T> {
-  var [x = 0] = args;
+  var x = args[0] ?? 0;
 
   if (typeof x === "number") {
-    var [_, y = x] = args;
+    var y = args[1] ?? x;
     return run(x, y);
   }
 

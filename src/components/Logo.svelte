@@ -3,7 +3,7 @@
   import { Vec2 } from "$class/Vec2";
   import { onFrame } from "$hooks/onFrame";
   import { getImageData } from "$library/image";
-  import { max, min, PI2, random } from "$library/math";
+  import { PI2, random } from "$library/math";
 
   export let src: string;
   export let size = 1;
@@ -59,6 +59,7 @@
           points.push(point);
         }
       }
+      console.log(points.length);
     },
   );
 

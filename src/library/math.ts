@@ -50,8 +50,6 @@ export const {
   trunc
 } = Math;
 
-
-
 export const DPI = PI / 2;
 export const PI2 = PI * 2;
 
